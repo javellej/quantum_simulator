@@ -11,9 +11,13 @@ main( int argc, char *argv[] )
         return 1;
     }
 
-    int num_registers = atoi( argv[1] );
+    u32 num_registers = atoi( argv[1] );
 
     std::cout << "Circuit on " << num_registers << " registers." << std::endl;
+
+    Circuit circuit( num_registers );
+
+    circuit.PrintState();
 
     return 0;
 }
