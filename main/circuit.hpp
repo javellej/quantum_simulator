@@ -1,21 +1,27 @@
 #pragma once
 
-#include <types.hpp>
 #include <gate.hpp>
+#include <phase.hpp>
+#include <types.hpp>
 #include <vector>
 
-template<class T> using vector = std::vector<T>;
+static constexpr u32 k_num_qubits = 4;
+
+static std::vector<Phase> g_phases( k_num_qubits );
+
 
 /**
  * A circuit is composed of gates between available registers placed sequentially.
  * Parallel gates are appended in no definite order as gates that act on exclusive
  * registers commute.
+ *
+ * We represent a circuit as a list of gates in a specific order and we leave the registers
+ * out of the circuit representation.
  */
 class Circuit
 {
 public:
-    // TODO maybe registers could be global to allow compile-time type resolution?
-    Circuit( u32 num_qubits );
+    Circuit();
 
     /**
      * Display current state of the system at some point in the execution
@@ -25,7 +31,5 @@ public:
     PrintState();
 
 private:
-    u32 m_num_qubits;
-    vector<f64>  m_phases;
-    vector<Gate> m_gates;
+    std::vector<Gate> m_gates;
 };
