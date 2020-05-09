@@ -2,6 +2,7 @@
 
 #include <qreg.hpp>
 #include <types.hpp>
+#include <cassert>
 
 
 /**
@@ -30,19 +31,35 @@ public:
      * 1-qubit gates
      */
     constexpr
-    Gate( Type type, QReg reg );
+    Gate( Type type, QReg reg )
+      : m_type(type), m_reg1(reg), m_reg2(), m_angle(0)
+    {
+        assert( Type::I == type ||
+                Type::X == type ||
+                Type::Y == type ||
+                Type::Z == type );
+    }
 
     /**
      * 2-qubit gates
      */
     constexpr
-    Gate( Type type, QReg reg1, QReg reg2 );
+    Gate( Type type, QReg reg1, QReg reg2 )
+      : m_type(type), m_reg1(reg1), m_reg2(reg2), m_angle(0)
+    {
+        assert( Type::CNot == type ||
+                Type::Swap == type );
+    }
 
     /**
      * Rotation
      */
     constexpr
-    Gate( Type type, QReg reg, f64 angle );
+    Gate( Type type, QReg reg, f64 angle )
+      : m_type(type), m_reg1(reg), m_reg2(), m_angle(angle)
+    {
+        assert( Type::Rotation == type );
+    }
 
     void
     Apply() const;
