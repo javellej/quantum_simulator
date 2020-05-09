@@ -10,8 +10,7 @@
  * The reversibility of unitary gates makes it such that the number of inputs is the
  * same as the number of output links.
  *
- * The Gate class is instantiated at compile time and contains internal attributes to
- * represent all types of supported gates.
+ * We use an inheritance model to specialise gates down to instantiable classes.
  */
 class Gate
 {
@@ -27,46 +26,24 @@ public:
         Swap
     };
 
-    /**
-     * 1-qubit gates
-     */
     constexpr
-    Gate( Type type, QReg reg )
-      : m_type(type), m_reg1(reg), m_reg2(), m_angle(0)
-    {
-        assert( Type::I == type ||
-                Type::X == type ||
-                Type::Y == type ||
-                Type::Z == type );
-    }
+    Gate() {}
 
-    /**
-     * 2-qubit gates
-     */
-    constexpr
-    Gate( Type type, QReg reg1, QReg reg2 )
-      : m_type(type), m_reg1(reg1), m_reg2(reg2), m_angle(0)
-    {
-        assert( Type::CNot == type ||
-                Type::Swap == type );
-    }
 
-    /**
-     * Rotation
-     */
+    virtual void
+    Apply() const = 0;
+};
+
+
+class GateX : public Gate
+{
+public:
     constexpr
-    Gate( Type type, QReg reg, f64 angle )
-      : m_type(type), m_reg1(reg), m_reg2(), m_angle(angle)
-    {
-        assert( Type::Rotation == type );
-    }
+    GateX( QReg reg ) : m_reg(reg) {}
 
     void
     Apply() const;
 
 private:
-    Type m_type;
-    QReg m_reg1;
-    QReg m_reg2;  // only used for 2-qubit gates
-    f64  m_angle; // only used for rotations
+    QReg m_reg;
 };

@@ -1,8 +1,8 @@
+#include <constants.hpp>
 #include <circuit.hpp>
 #include <gate.hpp>
 #include <phase.hpp>
 #include <qreg.hpp>
-#include <constants.hpp>
 #include <vector>
 #include <iostream>
 
@@ -22,7 +22,7 @@ main( int argc, char *argv[] )
 
     circuit.PrintState();
 
-    Gate gate_x( Gate::Type::X, 0 );
+    GateX gate_x( 0 );
 
     gate_x.Apply();
 
