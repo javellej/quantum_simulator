@@ -1,6 +1,9 @@
 #include <circuit.hpp>
 #include <gate.hpp>
+#include <phase.hpp>
 #include <qreg.hpp>
+#include <constants.hpp>
+#include <vector>
 #include <iostream>
 
 
@@ -22,6 +25,8 @@ main( int argc, char *argv[] )
     Gate gate_x( Gate::Type::X, 0 );
 
     gate_x.Apply();
+
+    std::cout << "After gate applied" << std::endl;
 
     circuit.PrintState();
 

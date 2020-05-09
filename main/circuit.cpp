@@ -1,8 +1,12 @@
 #include <circuit.hpp>
+#include <constants.hpp>
 #include <bitset>
 #include <iostream>
 #include <cstring>
 #include <cassert>
+
+
+std::vector<Phase> g_phases( k_num_phases );
 
 
 Circuit::Circuit()
@@ -16,7 +20,7 @@ Circuit::Circuit()
 void
 Circuit::PrintState()
 {
-    for ( u64 i=0; i<g_phases.size(); ++i )
+    for ( u64 i=0; i<k_num_phases; ++i )
     {
         if ( 0 != i ) std::cout << " + ";
 

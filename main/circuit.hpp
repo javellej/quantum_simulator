@@ -5,10 +5,6 @@
 #include <types.hpp>
 #include <vector>
 
-static constexpr u32 k_num_qubits = 4;
-
-static std::vector<Phase> g_phases( k_num_qubits );
-
 
 /**
  * A circuit is composed of gates between available registers placed sequentially.
