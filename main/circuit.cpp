@@ -36,3 +36,20 @@ Circuit::PrintState()
 
     std::cout << std::endl;
 }
+
+
+void
+Circuit::AddGate( const Gate * gate )
+{
+    m_gates.push_back( gate );
+}
+
+
+void
+Circuit::Run() const
+{
+    for ( auto& gate : m_gates )
+    {
+        gate->Apply();
+    }
+}

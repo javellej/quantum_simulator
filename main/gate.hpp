@@ -14,6 +14,8 @@
  */
 class Gate
 {
+    friend class Circuit;
+
 public:
     enum Type : u8
     {
@@ -29,7 +31,7 @@ public:
     constexpr
     Gate() {}
 
-
+private:
     virtual void
     Apply() const = 0;
 };
@@ -41,9 +43,9 @@ public:
     constexpr
     GateX( QReg reg ) : m_reg(reg) {}
 
+private:
     void
     Apply() const;
 
-private:
     QReg m_reg;
 };

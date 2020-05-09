@@ -23,11 +23,10 @@ main( int argc, char *argv[] )
     circuit.PrintState();
 
     GateX gate_x( 0 );
-
-    gate_x.Apply();
+    circuit.AddGate( &gate_x );
+    circuit.Run();
 
     std::cout << "After gate applied" << std::endl;
-
     circuit.PrintState();
 
     return 0;

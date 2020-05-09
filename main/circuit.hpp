@@ -26,6 +26,19 @@ public:
     void
     PrintState();
 
+    /**
+     * Put the input gate at the end of the circuit.
+     */
+    void
+    AddGate( const Gate * gate );
+
+    /**
+     * Run the circuit following the gates in order.
+     * NOTE : Side effect : affects the global phases (as expected)
+     */
+    void
+    Run() const;
+
 private:
-    std::vector<Gate> m_gates;
+    std::vector<const Gate *> m_gates;
 };
