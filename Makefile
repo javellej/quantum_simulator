@@ -1,11 +1,11 @@
 CXX      	 := -g++
-CXXFLAGS 	 := -Wall -Wextra -Werror
+CXXFLAGS 	 := -Wall -Wextra -Werror -Wno-psabi
 LDFLAGS  	 := -L/usr/lib -lstdc++
 BUILD        := ./build
 OBJ_DIR      := $(BUILD)/objects
 TARGET 		 := run_sim
 TEST   	     := unit
-INCLUDE 	 := -Imain/ -Iexternal/
+INCLUDE 	 := -Imain/
 SRC          := $(wildcard main/*.cpp)
 SRC_TEST     := $(wildcard unit/*.cpp)
 

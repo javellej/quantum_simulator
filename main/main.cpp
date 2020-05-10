@@ -10,21 +10,42 @@
 extern std::vector<Amplitude> g_amplitudes;
 
 
+// this allows to save a copy of the state for analysis (non-quantum operation)
+void
+SaveState( std::vector<Amplitude> &state )
+{
+    state.clear();
+
+    for ( const auto& amp : g_amplitudes )
+    {
+        state.push_back( amp );
+    }
+}
+
+
+// checks equality between states
+// TODO should be a swap test
+bool
+IsIdentical( std::vector<Amplitude> &state )
+{
+    for ( u32 i=0; i<k_num_amplitudes; ++i )
+    {
+        if ( !state[i].IsIdentical( g_amplitudes[i] ) ) return false;
+    }
+
+    return true;
+}
+
+
 // As a demonstration of the circuit simulator we use th following application: creation
 // of a graph state and check that the resulting state is an eigenvector of the stabilisers
 // defined by the adjacency matrix of the underlyong graph.
 int
-main( int argc, char *argv[] )
+main()
 {
-    if ( 1 != argc )
-    {
-        std::cout << "Syntax error, usage: \"" << argv[0] << "\"" << std::endl;
-        return 1;
-    }
+    std::cout << "Creating circuit on " << k_num_qubits << " 1-qubit registers." << std::endl;
 
     Circuit circuit;
-
-    std::cout << "Circuit on " << k_num_qubits << " 1-qubit registers." << std::endl;
 
 
     // Step 1 : initialise registers to represent the C5 graph state (cycle of 5 vertices)
@@ -54,7 +75,11 @@ main( int argc, char *argv[] )
     circuit.AddGate( &gate_10 );
 
     circuit.Run();
+    std::cout << "Graph state is :" << std::endl;
     circuit.PrintState();
+
+    std::vector<Amplitude> state; // used to save a copy of the state for analysis
+    SaveState( state );
 
 
     // Step 2 : apply stabilisers and check state is unchanged
@@ -66,58 +91,72 @@ main( int argc, char *argv[] )
     circuit.AddGate( &gate_12 );
     GateZ gate_13( 4 );
     circuit.AddGate( &gate_13 );
-    std::cout << std::endl;
     circuit.ResetReg();
     circuit.Run();
-    circuit.PrintState();
+    if ( IsIdentical( state ) )
+    {
+        std::cout << "State is stabilised by XZIIZ" << std::endl;
+    }
+    SaveState( state );
 
     // ZXZII stabiliser
     GateZ gate_14( 0 );
-    circuit.AddGate( &gate_11 );
+    circuit.AddGate( &gate_14 );
     GateX gate_15( 1 );
-    circuit.AddGate( &gate_12 );
+    circuit.AddGate( &gate_15 );
     GateZ gate_16( 2 );
-    circuit.AddGate( &gate_13 );
-    std::cout << std::endl;
+    circuit.AddGate( &gate_16 );
     circuit.ResetReg();
     circuit.Run();
-    circuit.PrintState();
+    if ( IsIdentical( state ) )
+    {
+        std::cout << "State is stabilised by ZXZII" << std::endl;
+    }
+    SaveState( state );
 
     // IZXZI stabiliser
     GateZ gate_17( 1 );
-    circuit.AddGate( &gate_11 );
+    circuit.AddGate( &gate_17 );
     GateX gate_18( 2 );
-    circuit.AddGate( &gate_12 );
+    circuit.AddGate( &gate_18 );
     GateZ gate_19( 3 );
-    circuit.AddGate( &gate_13 );
-    std::cout << std::endl;
+    circuit.AddGate( &gate_19 );
     circuit.ResetReg();
     circuit.Run();
-    circuit.PrintState();
+    if ( IsIdentical( state ) )
+    {
+        std::cout << "State is stabilised by IZXZI" << std::endl;
+    }
+    SaveState( state );
 
     // IIZXZ stabiliser
     GateZ gate_20( 2 );
-    circuit.AddGate( &gate_11 );
+    circuit.AddGate( &gate_20 );
     GateX gate_21( 3 );
-    circuit.AddGate( &gate_12 );
+    circuit.AddGate( &gate_21 );
     GateZ gate_22( 4 );
-    circuit.AddGate( &gate_13 );
-    std::cout << std::endl;
+    circuit.AddGate( &gate_22 );
     circuit.ResetReg();
     circuit.Run();
-    circuit.PrintState();
+    if ( IsIdentical( state ) )
+    {
+        std::cout << "State is stabilised by IIZXZ" << std::endl;
+    }
+    SaveState( state );
 
     // ZIIZX stabiliser
     GateZ gate_23( 0 );
-    circuit.AddGate( &gate_11 );
+    circuit.AddGate( &gate_23 );
     GateZ gate_24( 3 );
-    circuit.AddGate( &gate_12 );
+    circuit.AddGate( &gate_24 );
     GateX gate_25( 4 );
-    circuit.AddGate( &gate_13 );
-    std::cout << std::endl;
+    circuit.AddGate( &gate_25 );
     circuit.ResetReg();
     circuit.Run();
-    circuit.PrintState();
+    if ( IsIdentical( state ) )
+    {
+        std::cout << "State is stabilised by ZIIZX" << std::endl;
+    }
 
     return 0;
 }

@@ -49,6 +49,15 @@ public:
         m_amplitude *= other.m_amplitude;
     }
 
+    bool
+    IsIdentical( const Amplitude &other ) const
+    {
+        f64 epsilon = 1e-10; // TODO compute error properly
+
+        std::complex<f64> diff = m_amplitude - other.m_amplitude;
+        return std::norm( diff ) < epsilon;
+    }
+
 private:
     std::complex<f64> m_amplitude;
 
