@@ -1,16 +1,13 @@
-CXX      := -g++
-CXXFLAGS := -Wall -Wextra -Werror
-LDFLAGS  := -L/usr/lib -lstdc++
-BUILD    := ./build
-OBJ_DIR  := $(BUILD)/objects
-TARGET   := run_sim
-TEST     := unit
-INCLUDE  := -Imain/
-SRC      :=                      \
-   $(wildcard main/*.cpp)         \
-
-SRC_TEST :=                      \
-   $(wildcard unit/*.cpp)        \
+CXX      	 := -g++
+CXXFLAGS 	 := -Wall -Wextra -Werror
+LDFLAGS  	 := -L/usr/lib -lstdc++
+BUILD        := ./build
+OBJ_DIR      := $(BUILD)/objects
+TARGET 		 := run_sim
+TEST   	     := unit
+INCLUDE 	 := -Imain/ -Iexternal/
+SRC          := $(wildcard main/*.cpp)
+SRC_TEST     := $(wildcard unit/*.cpp)
 
 OBJECTS := $(SRC:%.cpp=$(OBJ_DIR)/%.o)
 OBJECTS_TEST := $(SRC_TEST:%.cpp=$(OBJ_DIR)/%.o)

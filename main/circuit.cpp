@@ -14,13 +14,13 @@ std::vector<Amplitude> g_amplitudes( k_num_amplitudes );
 Circuit::Circuit()
 {
     // initialise amplitudes to represent the state |0...0>
-    //memset( &g_amplitudes, 0, g_amplitudes.size() * sizeof( Amplitude ) );
+    g_amplitudes = std::vector<Amplitude>( k_num_amplitudes, 0 );
     g_amplitudes[0] = Amplitude( 1, 0 );
 }
 
 
 void
-Circuit::PrintState()
+Circuit::PrintState() const
 {
     for ( u64 i=0; i<k_num_amplitudes; ++i )
     {
@@ -54,4 +54,12 @@ Circuit::Run() const
     {
         gate->Apply();
     }
+}
+
+
+void
+Circuit::ResetReg() const
+{
+    g_amplitudes = std::vector<Amplitude>( k_num_amplitudes, 0 );
+    g_amplitudes[0] = Amplitude( 1, 0 );
 }

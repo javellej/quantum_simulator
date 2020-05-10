@@ -24,7 +24,7 @@ public:
      * NOTE : for Debug only, violates uncertainty principle :)
      */
     void
-    PrintState();
+    PrintState() const;
 
     /**
      * Put the input gate at the end of the circuit.
@@ -38,6 +38,12 @@ public:
      */
     void
     Run() const;
+
+    /**
+     * Restore the state of the registers to |0...0>
+     */
+    void
+    ResetReg() const;
 
 private:
     std::vector<const Gate *> m_gates;
