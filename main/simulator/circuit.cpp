@@ -8,13 +8,12 @@
 
 // amplitudes are global to emulate the fact that physical registers exist in only one copy,
 // independently from software.
-std::vector<Amplitude> g_amplitudes( k_num_amplitudes );
+std::vector<Amplitude> g_amplitudes( k_num_amplitudes, Amplitude() );
 
 
 Circuit::Circuit()
 {
     // initialise amplitudes to represent the state |0...0>
-    g_amplitudes = std::vector<Amplitude>( k_num_amplitudes, 0 );
     g_amplitudes[0] = Amplitude( 1, 0 );
 }
 
@@ -60,6 +59,6 @@ Circuit::Run() const
 void
 Circuit::ResetReg() const
 {
-    g_amplitudes = std::vector<Amplitude>( k_num_amplitudes, 0 );
+    g_amplitudes = std::vector<Amplitude>( k_num_amplitudes, Amplitude() );
     g_amplitudes[0] = Amplitude( 1, 0 );
 }
