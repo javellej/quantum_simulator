@@ -5,11 +5,13 @@ BUILD        := ./build
 OBJ_DIR      := $(BUILD)/objects
 TARGET 		 := run_sim
 TEST   	     := unit
-INCLUDE 	 := -Imain/
-SRC          := $(wildcard main/*.cpp)
+INCLUDE 	 := -Imain/simulator/ -Iexternal/
+SRC_MAIN     := main/main.cpp
+SRC          := $(wildcard main/simulator/*.cpp)
 SRC_TEST     := $(wildcard unit/*.cpp)
 
-OBJECTS := $(SRC:%.cpp=$(OBJ_DIR)/%.o)
+OBJECT_MAIN  := $(SRC_MAIN:%.cpp=$(OBJ_DIR)/%.o)
+OBJECTS      := $(SRC:%.cpp=$(OBJ_DIR)/%.o)
 OBJECTS_TEST := $(SRC_TEST:%.cpp=$(OBJ_DIR)/%.o)
 
 all: build $(BUILD)/$(TARGET) $(BUILD)/$(TEST)
@@ -18,13 +20,13 @@ $(OBJ_DIR)/%.o: %.cpp
 	@mkdir -p $(@D)
 	$(CXX) $(CXXFLAGS) $(INCLUDE) -o $@ -c $<
 
-$(BUILD)/$(TARGET): $(OBJECTS)
+$(BUILD)/$(TARGET): $(OBJECT_MAIN) $(OBJECTS)
 	@mkdir -p $(@D)
-	$(CXX) $(CXXFLAGS) $(INCLUDE) $(LDFLAGS) -o $(BUILD)/$(TARGET) $(OBJECTS)
+	$(CXX) $(CXXFLAGS) $(INCLUDE) $(LDFLAGS) -o $(BUILD)/$(TARGET) $(OBJECT_MAIN) $(OBJECTS)
 
 $(BUILD)/$(TEST): $(OBJECTS_TEST)
 	@mkdir -p $(@D)
-	$(CXX) $(CXXFLAGS) $(INCLUDE) $(LDFLAGS) -o $(BUILD)/$(TEST) $(OBJECTS_TEST)
+	$(CXX) $(CXXFLAGS) $(INCLUDE) $(LDFLAGS) -o $(BUILD)/$(TEST) $(OBJECTS) $(OBJECTS_TEST)
 
 .PHONY: all build clean debug release
 

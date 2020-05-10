@@ -6,10 +6,6 @@
 
 extern std::vector<Amplitude> g_amplitudes;
 
-constexpr Amplitude k_i( 0, 1 );
-constexpr f64       k_pi = acos( -1 );
-constexpr f64       k_sqrt_2_inv = 1 / sqrt( 2 );
-
 
 u32
 RegMask( QReg reg )
@@ -72,8 +68,9 @@ GateY::Apply() const
             Amplitude a_0 = g_amplitudes[i_0];
             Amplitude a_1 = g_amplitudes[i_1];
 
-            g_amplitudes[i_0] = -k_i * a_1;
-            g_amplitudes[i_1] =  k_i * a_0;
+            // a|0> becomes -ia|1>, a|1> becomes ia|0>
+            g_amplitudes[i_1] = -k_i * a_0;
+            g_amplitudes[i_0] =  k_i * a_1;
         }
     }
 }
