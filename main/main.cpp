@@ -1,7 +1,7 @@
 #include <constants.hpp>
 #include <circuit.hpp>
 #include <gate.hpp>
-#include <phase.hpp>
+#include <amplitude.hpp>
 #include <qreg.hpp>
 #include <vector>
 #include <iostream>
@@ -22,8 +22,8 @@ main( int argc, char *argv[] )
 
     circuit.PrintState();
 
-    GateX gate_x( 0 );
-    circuit.AddGate( &gate_x );
+    GateH gate( 0 );
+    circuit.AddGate( &gate );
     circuit.Run();
 
     std::cout << "After gate applied" << std::endl;

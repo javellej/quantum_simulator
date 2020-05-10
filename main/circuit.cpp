@@ -6,27 +6,27 @@
 #include <cassert>
 
 
-std::vector<Phase> g_phases( k_num_phases );
+std::vector<Amplitude> g_amplitudes( k_num_amplitudes );
 
 
 Circuit::Circuit()
 {
-    // initialise phases to represent the state |0...0>
-    //memset( &g_phases, 0, g_phases.size() * sizeof( Phase ) );
-    g_phases[0] = Phase( 1, 0 );
+    // initialise amplitudes to represent the state |0...0>
+    //memset( &g_amplitudes, 0, g_amplitudes.size() * sizeof( Amplitude ) );
+    g_amplitudes[0] = Amplitude( 1, 0 );
 }
 
 
 void
 Circuit::PrintState()
 {
-    for ( u64 i=0; i<k_num_phases; ++i )
+    for ( u64 i=0; i<k_num_amplitudes; ++i )
     {
         if ( 0 != i ) std::cout << " + ";
 
         std::bitset<32> ket( i );
 
-        std::cout << "(" << g_phases[i].Im() << "i + " << g_phases[i].Re() << ") |";
+        std::cout << "(" << g_amplitudes[i].Re() << " + " << g_amplitudes[i].Im() << "i) |";
         for ( u32 b=0; b<k_num_qubits; ++b )
         {
             std::cout << ket[k_num_qubits-b-1];

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <gate.hpp>
-#include <phase.hpp>
+#include <amplitude.hpp>
 #include <types.hpp>
 #include <vector>
 
@@ -34,7 +34,7 @@ public:
 
     /**
      * Run the circuit following the gates in order.
-     * NOTE : Side effect : affects the global phases (as expected)
+     * NOTE : Side effect : affects the global amplitudes (as expected)
      */
     void
     Run() const;
