@@ -7,6 +7,8 @@ The project in in an early stage of development and should be considered as an e
 Some unit tests have been provided however they do not provide a sufficient coverage at the moment.
 The intention is more to show how unit tests could be made and extended.
 
+The default number of qubits is 5, but it can be extended up to 31, to be set at compile time.
+
 
 ## Dependencies
 
