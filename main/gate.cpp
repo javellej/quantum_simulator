@@ -43,7 +43,7 @@ GateX::Apply() const
     for (u32 i=0; i<k_num_amplitudes; ++i)
     {
         // only swap once
-        if ( IsBitOne( i, reg_mask ) )
+        if ( !IsBitOne( i, reg_mask ) )
         {
             // swap i and i ^ reg_mask
             u32 i_0 = i;
@@ -65,7 +65,7 @@ GateY::Apply() const
 
     for (u32 i=0; i<k_num_amplitudes; ++i)
     {
-        if ( IsBitOne( i, reg_mask ) )
+        if ( !IsBitOne( i, reg_mask ) )
         {
             u32 i_0 = i;
             u32 i_1 = i ^ reg_mask;
@@ -105,7 +105,7 @@ GateH::Apply() const
 
     for (u32 i=0; i<k_num_amplitudes; ++i)
     {
-        if ( IsBitOne( i, reg_mask ) )
+        if ( !IsBitOne( i, reg_mask ) )
         {
             u32 i_0 = i;
             u32 i_1 = i ^ reg_mask;
@@ -150,7 +150,7 @@ GateCNot::Apply() const
         if ( IsBitOne( i, reg1_mask ) )
         {
             // Apply X on second register
-            if ( IsBitOne( i, reg2_mask ) )
+            if ( !IsBitOne( i, reg2_mask ) )
             {
                 // swap i and i ^ reg2_mask
                 u32 i_0 = i;
