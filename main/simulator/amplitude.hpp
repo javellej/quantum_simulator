@@ -49,6 +49,10 @@ public:
         m_amplitude *= other.m_amplitude;
     }
 
+    /**
+     * \return true iff both amplitudes are close enough to each other.
+     * NOTE : the proximity is determined by an epsilon on the square norm of the difference.
+     */
     bool
     IsIdentical( const Amplitude &other ) const
     {
