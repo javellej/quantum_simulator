@@ -11,6 +11,8 @@
  * same as the number of output links.
  *
  * We use an inheritance model to specialise gates down to instantiable classes.
+ *
+ * The  idea behing gate application to the quantum registers is to go through all of the base states in the general superposition and apply gates.
  */
 class Gate
 {
@@ -143,6 +145,21 @@ class GateSwap : public Gate
 public:
     constexpr
     GateSwap( QReg reg1, QReg reg2 ) : m_reg1(reg1), m_reg2(reg2) {}
+
+private:
+    QReg m_reg1;
+    QReg m_reg2;
+
+    void
+    Apply() const;
+};
+
+
+class GateCZ : public Gate
+{
+public:
+    constexpr
+    GateCZ( QReg reg1, QReg reg2 ) : m_reg1(reg1), m_reg2(reg2) {}
 
 private:
     QReg m_reg1;

@@ -6,6 +6,8 @@
 #include <cassert>
 
 
+// amplitudes are global to emulate the fact that physical registers exist in only one copy,
+// independently from software.
 std::vector<Amplitude> g_amplitudes( k_num_amplitudes );
 
 
